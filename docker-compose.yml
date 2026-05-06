@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  oracle-db:
+    image: gvenzl/oracle-xe:21-slim-fast
+    container_name: oracle_lab5
+    environment:
+      - ORACLE_PASSWORD=oracle_password
+    ports:
+      - "1521:1521"
+    volumes:
+      - ./init_db:/container-entrypoint-initdb.d
+  pyspark-app:
+    build: .
+    container_name: pyspark_clustering
+    depends_on:
+      - oracle-db
+    environment:
+      - DB_URL=jdbc:oracle:thin:@oracle-db:1521/XE
+      - DB_USER=SYSTEM
+      - DB_PASSWORD=oracle_password
