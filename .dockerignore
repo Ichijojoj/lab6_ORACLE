@@ -6,6 +6,3 @@ __pycache__
 .git
 models/
 project_dump.txt
-data/
-*.csv
-*.tsv
