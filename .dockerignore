@@ -1,0 +1,11 @@
+.venv
+venv
+env
+__pycache__
+.idea
+.git
+models/
+project_dump.txt
+data/
+*.csv
+*.tsv

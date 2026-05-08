@@ -13,12 +13,11 @@ class AppConfig:
     random_seed: int = 42
     max_iter: int = 20
 
-    # Настройки Oracle DB (читаются из переменных окружения Docker)
-    db_url: str = os.getenv("DB_URL", "jdbc:oracle:thin:@localhost:1521/XE")
+    db_url: str = os.getenv("DB_URL", "jdbc:oracle:thin:@oracle-db:1521/XEPDB1")
     db_user: str = os.getenv("DB_USER", "SYSTEM")
     db_password: str = os.getenv("DB_PASSWORD", "oracle_password")
     db_driver: str = "oracle.jdbc.driver.OracleDriver"
 
-    # Таблицы протокола взаимодействия
-    source_table: str = "RAW_FOOD_DATA"
-    target_table: str = "FOOD_CLUSTERS_RESULT"
+    # ИСПРАВЛЕНО: Явно указываем схему SYSTEM
+    source_table: str = "SYSTEM.RAW_FOOD_DATA"
+    target_table: str = "SYSTEM.FOOD_CLUSTERS_RESULT"

@@ -35,7 +35,8 @@ class OracleManager:
                 return df
 
             except Py4JJavaError as e:
-                self.logger.warning(f"БД Oracle еще не готова (Попытка {attempt}). Ожидание {delay} сек...")
+                error_msg = str(e.java_exception).split('\n')[0]
+                self.logger.warning(f"БД Oracle еще не готова (Попытка {attempt}). Ошибка: {error_msg}")
                 time.sleep(delay)
 
         raise ConnectionError("Не удалось подключиться к Oracle после всех попыток. Проверьте состояние БД.")
