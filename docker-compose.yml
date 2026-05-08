@@ -10,7 +10,7 @@ services:
       - ./init_db:/container-entrypoint-initdb.d
     # Проверка "здоровья" БД: ждем, пока она начнет принимать запросы
     healthcheck:
-      test: ["CMD-SHELL", "echo 'SELECT 1 FROM DUAL;' | sqlplus -S SYSTEM/oracle_password@localhost/XE || exit 1"]
+      test: ["CMD-SHELL", "echo 'SELECT 1 FROM DUAL;' | sqlplus -S SYSTEM/oracle_password@localhost/XEPDB1 || exit 1"]
       interval: 15s
       timeout: 10s
       retries: 20
