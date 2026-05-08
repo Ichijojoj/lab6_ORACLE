@@ -24,10 +24,13 @@ class MLPipeline:
         db_manager = OracleManager(spark, self.config)
 
         try:
-            #Выгрузка данных
+            # 0. Инициализация (заливаем датасет в Oracle, если БД пустая)
+            db_manager.seed_database("data/data.csv")
+
+            # 1. Выгрузка данных из БД (Extract)
             raw_df = db_manager.extract_data()
 
-            # данные
+            # 2. Обработка (Transform)
             preprocessor = DataPreprocessor(spark, self.config)
             clean_df = preprocessor.clean_data(raw_df)
             clean_df.cache()
