@@ -16,4 +16,10 @@ INSERT INTO SYSTEM.RAW_FOOD_DATA (energy_100g, fat_100g, carbohydrates_100g, sug
 VALUES (2000, 10.5, 50.0, 5.0, 8.0, 1.2);
 INSERT INTO SYSTEM.RAW_FOOD_DATA (energy_100g, fat_100g, carbohydrates_100g, sugars_100g, proteins_100g, salt_100g)
 VALUES (150, 0.5, 3.0, 2.0, 1.0, 0.1);
+INSERT INTO SYSTEM.RAW_FOOD_DATA (energy_100g, fat_100g, carbohydrates_100g, sugars_100g, proteins_100g, salt_100g) VALUES (2000, 10.5, 50.0, 5.0, 8.0, 1.2);
+INSERT INTO SYSTEM.RAW_FOOD_DATA (energy_100g, fat_100g, carbohydrates_100g, sugars_100g, proteins_100g, salt_100g) VALUES (150, 0.5, 3.0, 2.0, 1.0, 0.1);
+INSERT INTO SYSTEM.RAW_FOOD_DATA (energy_100g, fat_100g, carbohydrates_100g, sugars_100g, proteins_100g, salt_100g) VALUES (800, 5.0, 20.0, 15.0, 4.0, 0.5);
+INSERT INTO SYSTEM.RAW_FOOD_DATA (energy_100g, fat_100g, carbohydrates_100g, sugars_100g, proteins_100g, salt_100g) VALUES (3000, 30.0, 10.0, 1.0, 20.0, 2.0);
+INSERT INTO SYSTEM.RAW_FOOD_DATA (energy_100g, fat_100g, carbohydrates_100g, sugars_100g, proteins_100g, salt_100g) VALUES (50, 0.1, 10.0, 9.0, 0.5, 0.0);
+INSERT INTO SYSTEM.RAW_FOOD_DATA (energy_100g, fat_100g, carbohydrates_100g, sugars_100g, proteins_100g, salt_100g) VALUES (1200, 15.0, 40.0, 25.0, 5.0, 1.0);
 COMMIT;
