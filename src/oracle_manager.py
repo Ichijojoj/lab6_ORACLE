@@ -14,12 +14,12 @@ class OracleManager:
 
     def extract_data(self) -> DataFrame:
         """Читает данные из Oracle с механизмом Retry (базе нужно время на запуск)."""
-        retries = 5
-        delay = 10  # секунд
+        retries = 20  # Увеличили до 20 попыток
+        delay = 15  # Увеличили задержку до 15 секунд (Итого до 5 минут ожидания)
 
-        for attempt in range(retries):
+        for attempt in range(1, retries + 1):
             try:
-                self.logger.info(f"Попытка {attempt + 1}/{retries}: Чтение таблицы {self.config.source_table}...")
+                self.logger.info(f"Попытка {attempt}/{retries}: Чтение таблицы {self.config.source_table}...")
                 df = self.spark.read \
                     .format("jdbc") \
                     .option("url", self.config.db_url) \
@@ -35,10 +35,10 @@ class OracleManager:
                 return df
 
             except Py4JJavaError as e:
-                self.logger.warning(f"Ошибка подключения к Oracle: БД еще не готова. Ожидание {delay} сек...")
+                self.logger.warning(f"БД Oracle еще не готова (Попытка {attempt}). Ожидание {delay} сек...")
                 time.sleep(delay)
 
-        raise ConnectionError("Не удалось подключиться к Oracle после нескольких попыток.")
+        raise ConnectionError("Не удалось подключиться к Oracle после всех попыток. Проверьте состояние БД.")
 
     def load_results(self, df: DataFrame) -> None:
         """Сохраняет результаты работы модели обратно в Oracle."""

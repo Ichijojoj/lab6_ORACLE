@@ -1,8 +1,6 @@
-version: '3.8'
-
 services:
   oracle-db:
-    image: gvenzl/oracle-xe:21-slim-fast
+    image: gvenzl/oracle-xe:21-slim
     container_name: oracle_lab5
     environment:
       - ORACLE_PASSWORD=oracle_password
@@ -10,11 +8,20 @@ services:
       - "1521:1521"
     volumes:
       - ./init_db:/container-entrypoint-initdb.d
+    # Проверка "здоровья" БД: ждем, пока она начнет принимать запросы
+    healthcheck:
+      test: ["CMD-SHELL", "echo 'SELECT 1 FROM DUAL;' | sqlplus -S SYSTEM/oracle_password@localhost/XE || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 20
+      start_period: 60s
+
   pyspark-app:
     build: .
     container_name: pyspark_clustering
     depends_on:
-      - oracle-db
+      oracle-db:
+        condition: service_healthy # Spark запустится ТОЛЬКО после того, как Oracle будет готов
     environment:
       - DB_URL=jdbc:oracle:thin:@oracle-db:1521/XE
       - DB_USER=SYSTEM
